@@ -12,7 +12,7 @@ class bbPress_Lock_Resolved_Topics{
 
 	function __construct() {
 		add_filter( 'bbp_get_template_part', array( $this, 'dont_show_form_if_resolved' ), 8, 3 );
-		add_filter( 'bbp_get_template_stack', array( $this, 'add_template' ), 10, 1 ); 
+		add_filter( 'bbp_get_template_stack', array( $this, 'add_template' ), 10, 1 );
 	}
 
 	public function dont_show_form_if_resolved( $templates, $slug, $name ){
@@ -22,11 +22,11 @@ class bbPress_Lock_Resolved_Topics{
 			}
 
 			$topic_id = bbp_get_topic_id();
-			
+
 			if ( $topic_id && !current_user_can( 'moderate' ) ){
 				$status = get_post_meta( $topic_id, '_bbps_topic_status', true );
 				if ( $status ){
-					$value = $status;
+					$value = intval( $status );
 				} else {
 					$value = 1;
 				}
@@ -41,7 +41,7 @@ class bbPress_Lock_Resolved_Topics{
 
 		}
 		return $templates;
-	
+
 	}
 
 	public function add_template( $stack ){
