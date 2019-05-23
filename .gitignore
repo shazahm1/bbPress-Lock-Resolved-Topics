@@ -1,3 +1,7 @@
+# phpStorm #
+############
+.idea
+
 *.log
 .htaccess
 sitemap.xml
