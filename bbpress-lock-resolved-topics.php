@@ -12,7 +12,21 @@ class bbPress_Lock_Resolved_Topics{
 
 	function __construct() {
 		add_filter( 'bbp_get_template_part', array( $this, 'dont_show_form_if_resolved' ), 8, 3 );
+		add_filter( 'bbp_get_template_part', array( $this, 'require_login_to_submit_topic' ), 8, 3 );
 		add_filter( 'bbp_get_template_stack', array( $this, 'add_template' ), 10, 1 );
+	}
+
+	public function require_login_to_submit_topic( $templates, $slug, $name ) {
+
+		if ( $slug === 'form' && $name === 'topic' ) {
+
+			if ( ! is_user_logged_in() || ! current_user_can( 'publish_topics' ) ) {
+
+				return array( 0 => 'form-topic-require-login.php' );
+			}
+		}
+
+		return $templates;
 	}
 
 	public function dont_show_form_if_resolved( $templates, $slug, $name ){
@@ -40,8 +54,8 @@ class bbPress_Lock_Resolved_Topics{
 			}
 
 		}
-		return $templates;
 
+		return $templates;
 	}
 
 	public function add_template( $stack ){

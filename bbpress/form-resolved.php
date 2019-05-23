@@ -29,6 +29,6 @@
 
 <?php endif;
 
-// todo: create new topic form populated with ticket link and short desc and then redirect on submisssion
+// todo: create new topic form populated with ticket link and short desc and then redirect on submission
 
 ?>
